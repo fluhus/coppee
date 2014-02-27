@@ -1,4 +1,4 @@
-coppee
+Coppee
 ======
 
 An automatic file copier

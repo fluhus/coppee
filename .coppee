@@ -1,0 +1,6 @@
+// You can write comments using '//'
+
+// Empty lines are ignored
+
+(.*)ai(.*)
+${1}ia${2}
