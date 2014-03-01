@@ -1,16 +1,17 @@
-Coppee
-======
+Coppee (0.1)
+============
 An automatic file copier.
-Programatically define name templates and targets, and Coppee will copy
+Programatically define file name templates and targets, and Coppee will copy
 them automatically.
 
-Please report bugs to **doctor_troll at walla dot com**
+Please report bugs, comments and requests to **doctor_troll at walla dot com**
 
 How to Compile
 --------------
 * Make sure you have a **go** compiler.
 * Set **GOPATH** to be the base folder of the project.
-* Run `go install coppee`.
+* Run `go install coppee`. Don't worry, it doesn't actually install anything on your system. It only compiles
+  the code.
 * Executable will be in folder **bin**.
 
 Usage
@@ -63,6 +64,7 @@ Future Features
 * choose whether or not to overwrite existing files
 * set output prints on/off
 * choose whether or not to ignore i/o errors (right now it exits on error)
+* *features suggested by users*
 
 Version History
 ---------------
