@@ -2,5 +2,5 @@
 
 // Empty lines are ignored
 
-(.*)ai(.*)
-${1}ia${2}
+//(.*)ai(.*)
+//${1}ia${2}

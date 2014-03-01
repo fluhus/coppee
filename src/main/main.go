@@ -3,9 +3,8 @@ package main
 import (
 	"os"
 	"fmt"
-	// "flag"
-	//"errors"
 	"path/filepath"
+	"arguments"
 )
 
 // Returns a copier walk-function.
@@ -68,6 +67,7 @@ func main() {
 	if e != nil { panic(e.Error()) }
 	filepath.Walk(".", copier(".", r, true, true, true))
 
+	arguments.NewParser()
 	// var i int
 	// flag.IntVar(&i, "integer", 13, "descriptionnn")
 	// flag.Parse()

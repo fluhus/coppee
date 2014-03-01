@@ -61,4 +61,3 @@ func fcopy(dst, src string) (written int64, err error) {
 	// Go!
 	return io.Copy(bout, bin)
 }
-
