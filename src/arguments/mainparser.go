@@ -1,8 +1,9 @@
 // Parses command line arguments.
 package arguments
 
-// BUG(amit): Need to document the 'Add...' functions.
-// BUG(amit): Need to add the help print mechanism.
+// BUG(amit): Document the 'Add...' functions.
+// BUG(amit): Add the help print mechanism.
+// BUG(amit): Add free argument parsers.
 
 import (
 	"errors"
@@ -35,7 +36,7 @@ func (p *Parser) AddInt(
 	_, ok1 := p.val[symbol]
 	_, ok2 := p.noval[symbol]
 	if ok1 || ok2 {
-		panic("Symbol \"" + symbol + "\" already exists.")
+		panic("Symbol '" + symbol + "' already exists.")
 	}
 	
 	// Add to parser
@@ -59,7 +60,7 @@ func (p *Parser) AddFloat(
 	_, ok1 := p.val[symbol]
 	_, ok2 := p.noval[symbol]
 	if ok1 || ok2 {
-		panic("Symbol \"" + symbol + "\" already exists.")
+		panic("Symbol '" + symbol + "' already exists.")
 	}
 	
 	// Add to parser
@@ -83,7 +84,7 @@ func (p *Parser) AddString(
 	_, ok1 := p.val[symbol]
 	_, ok2 := p.noval[symbol]
 	if ok1 || ok2 {
-		panic("Symbol \"" + symbol + "\" already exists.")
+		panic("Symbol '" + symbol + "' already exists.")
 	}
 	
 	// Add to parser
@@ -105,7 +106,7 @@ func (p *Parser) AddBool(
 	
 	// Existing symbols are not accepted
 	if p.has(symbol) {
-		panic("Symbol \"" + symbol + "\" already exists.")
+		panic("Symbol '" + symbol + "' already exists.")
 	}
 	
 	// Add to parser
@@ -145,7 +146,7 @@ func (p *Parser) Parse(args []string) (freeArgs []string, err error) {
 			// a symbol)
 			if i == len(args) - 1 || p.has(args[i+1]) {
 				// No value exists -> error
-				err = errors.New("Value expected after \"" + args[i] + "\".")
+				err = errors.New("value expected after '" + args[i] + "'.")
 				return
 			}
 			

@@ -40,7 +40,7 @@ func newIntParser(symbol string, description string, defaultVal int) *intParser 
 // Parses the given argument. Returns an error if fails.
 func (p *intParser) parse(arg string) error {
 	if p.parsed {
-		return errors.New("Too many occurrances of argument \"" + p.symbol + "\".")
+		return errors.New("too many occurrances of argument '" + p.symbol + "'.")
 	}
 		
 	p.parsed = true
@@ -48,7 +48,7 @@ func (p *intParser) parse(arg string) error {
 	// Try to parse
 	i, err := strconv.Atoi(arg)
 	if err != nil {
-		return errors.New("\"" + arg + "\" is not a valid integer.")
+		return errors.New("'" + arg + "' is not a valid integer.")
 	}
 	
 	// Assign output
@@ -72,7 +72,7 @@ func newFloatParser(symbol string, description string, defaultVal float64) *floa
 // Parses the given argument. Returns an error if fails.
 func (p *floatParser) parse(arg string) error {
 	if p.parsed {
-		return errors.New("Too many occurrances of argument \"" + p.symbol + "\".")
+		return errors.New("too many occurrances of argument '" + p.symbol + "'.")
 	}
 		
 	p.parsed = true
@@ -80,7 +80,7 @@ func (p *floatParser) parse(arg string) error {
 	// Try to parse
 	f, err := strconv.ParseFloat(arg, 64)
 	if err != nil {
-		return errors.New("\"" + arg + "\" is not a valid float.")
+		return errors.New("'" + arg + "' is not a valid float.")
 	}
 	
 	// Assign output
@@ -104,7 +104,7 @@ func newStringParser(symbol string, description string, defaultVal string) *stri
 // Parses the given argument. Returns an error if fails.
 func (p *stringParser) parse(arg string) error {
 	if p.parsed {
-		return errors.New("Too many occurrances of argument \"" + p.symbol + "\"")
+		return errors.New("too many occurrances of argument '" + p.symbol + "'")
 	}
 		
 	p.parsed = true
@@ -130,7 +130,7 @@ func newBoolParser(symbol string, description string, defaultVal bool) *boolPars
 // Reacts to the argument. Returns an error if fails.
 func (p *boolParser) parse() error {
 	if p.parsed {
-		return errors.New("Too many occurrances of argument \"" + p.symbol + "\".")
+		return errors.New("too many occurrances of argument '" + p.symbol + "'.")
 	}
 		
 	p.parsed = true

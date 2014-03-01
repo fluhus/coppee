@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	//"fmt"
 	"bufio"
 	"errors"
 	"regexp"
@@ -15,6 +14,7 @@ type copyRule struct {
 	dst string  // destination path
 }
 
+// String representation of a rule. For debugging.
 func (cr copyRule) String() string {
 	return "{" + cr.src.String() + " " + cr.dst + "}"
 }
@@ -26,12 +26,13 @@ func isRegexp(s string) bool {
 	return err == nil
 }
 
-// Reads copy rules from a config file.
+// Reads copy rules from a config file. Returns an error if file not found
+// or badly formatted.
 func readRules(path string) (rules []copyRule, err error) {
 	// Open file
 	f, ferr := os.Open(path)
 	if ferr != nil {
-		err = errors.New("File not found: " + path)
+		err = errors.New("file not found: " + path)
 		return
 	}
 
@@ -51,7 +52,7 @@ func readRules(path string) (rules []copyRule, err error) {
 
 		// Check regex
 		if !isRegexp(r) {
-			err = errors.New("Invalid regular expression: " + r)
+			err = errors.New("invalid regular expression: " + r)
 			return
 		}
 
@@ -61,7 +62,7 @@ func readRules(path string) (rules []copyRule, err error) {
 	// Check length - each source must be followed by a target, so an odd length
 	// is not allowed.
 	if len(s) % 2 == 1 {
-		err = errors.New("Source with no target: " + s[len(s) - 1])
+		err = errors.New("source with no target: " + s[len(s) - 1])
 		return
 	}
 

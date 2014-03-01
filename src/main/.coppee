@@ -1,6 +1,16 @@
-// You can write comments using '//'
+// Sample input file.
+// Use '//' for comments, these line will be ignored.
+// Empty lines will also be ignored.
 
-// Empty lines are ignored
+// Lines are parsed in pairs; first is the template, second is the target.
+// An odd number of lines will result in an error.
+// Template must be a valid regular expression.
 
-//(.*)ai(.*)
-//${1}ia${2}
+// Template: captures all .doc and .docx files
+(.+)\.(docx?)
+
+// Target: add .coppee before the suffix. Use ${#} to repeat parenthesized
+// expressions, by the order of appearence of the openning parenthesis.
+// ${1} will be replaced by the expression matched by (.+).
+// ${2} will be replaced by the expression matched by (docx?).
+${1}.coppee.${2}

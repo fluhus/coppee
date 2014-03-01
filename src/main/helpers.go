@@ -33,9 +33,9 @@ func fcopy(dst, src string) (written int64, err error) {
 	if ine != nil {
 		switch {
 		case os.IsNotExist(ine):
-			ine = errors.New("File not found: " + src)
+			ine = errors.New("file not found: " + src)
 		case os.IsPermission(ine):
-			ine = errors.New("No permission to read: " + src)
+			ine = errors.New("no permission to read: " + src)
 		}
 		
 		return 0, ine
@@ -46,7 +46,7 @@ func fcopy(dst, src string) (written int64, err error) {
 	out, oute := os.Create(dst)
 	if oute != nil {
 		if os.IsPermission(oute) {
-			oute = errors.New("No permission to write: " + dst)
+			oute = errors.New("no permission to write: " + dst)
 		}
 	
 		return 0, oute
