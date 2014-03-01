@@ -1,13 +1,72 @@
 Coppee
 ======
+An automatic file copier.
+Programatically define name templates and targets, and Coppee will copy
+them automatically.
 
-Description
------------
-An automatic file copier. Programatically define name templates and targets,
-and Coppee will copy them automatically.
+Please report bugs to **doctor_troll at walla dot com**
 
-Status
-------
-In progress. Tasks to be done before usability:
-* Define command line arguments
-* Verify existance of target folder
+How to Compile
+--------------
+* Make sure you have a **go** compiler.
+* Set **GOPATH** to be the base folder of the project.
+* Run `go install coppee`.
+* Executable will be in folder **bin**.
+
+Usage
+-----
+Command: `coppee <directory>`  
+The target directory must contain a file named **.coppee**. In this file are the
+copying instructions (see dedicated section).
+Copying will overwrite existing files, so use with caution.
+
+Istruction File Format
+----------------------
+### General structure
+A sample instruction file can be found with the main code files.
+The instruction file should be formatted as follows:  
+```
+template1
+target1
+template2
+target2
+...
+```
+Each template is a regular expression, followed by its specific target. File names that match
+the template, will be copied and named according to the target.
+### Capturing groups
+You can refer to
+the source's name in the target, using capturing groups:
+```
+lecture_(\d+)\.ppt
+lesson_${1}.ppt
+```
+The expression `${1}` will be replaced by the expression matched by the first
+parenthesized group. In the same way, `${2}` will be replaced by the second
+parenthesized expression, etc. In the above example, a file named **lecture_13.ppt** will
+be copied to a file named **lesson_13.ppt**.
+### Comments and empty lines
+Comments are lines the start with `//`. Comments and empty lines are ignored by
+the parser.
+```
+// This is a comment.
+  // Enveloping whitespaces are trimmed for comments, templates and targets.
+
+// Match .doc and .docx files
+(.+)\.(docx?)
+// Target is the same file with .coppee added before the suffix
+${1}.coppee.${2}
+```
+
+Future Features
+---------------
+* choose whether or not to overwrite existing files
+* set output prints on/off
+* choose whether or not to ignore i/o errors (right now it exits on error)
+
+Version History
+---------------
+### 0.1
+First functional version. Should be stable, though not fully functional.
+
+
