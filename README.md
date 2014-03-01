@@ -21,8 +21,8 @@ The target directory must contain a file named **.coppee**. In this file are the
 copying instructions (see dedicated section).
 Copying will overwrite existing files, so use with caution.
 
-Istruction File Format
-----------------------
+Instruction File Format
+-----------------------
 ### General structure
 A sample instruction file can be found with the main code files.
 The instruction file should be formatted as follows:  
