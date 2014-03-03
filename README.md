@@ -62,7 +62,6 @@ ${1}.coppee.${2}
 
 Future Features
 ---------------
-* add pretend-mode, that only reports what actions will be taken in current configuration
 * handle subdirectory recursion
 * choose whether or not to ignore i/o errors (right now it exits on error)
 * *features suggested by users*
