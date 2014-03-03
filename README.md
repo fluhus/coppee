@@ -47,7 +47,7 @@ parenthesized group. In the same way, `${2}` will be replaced by the second
 parenthesized expression, etc. In the above example, a file named **lecture_13.ppt** will
 be copied to a file named **lesson_13.ppt**.
 ### Comments and empty lines
-Comments are lines the start with `//`. Comments and empty lines are ignored by
+Comments are lines that start with `//`. Comments and empty lines are ignored by
 the parser.
 ```
 // This is a comment.
@@ -61,8 +61,11 @@ ${1}.coppee.${2}
 
 Future Features
 ---------------
+* support UTF-8 instructions
 * choose whether or not to overwrite existing files
 * set output prints on/off
+* add pretend-mode, that only reports what actions will be taken in current configuration
+* handle subdirectory recursion
 * choose whether or not to ignore i/o errors (right now it exits on error)
 * *features suggested by users*
 
