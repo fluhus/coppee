@@ -16,7 +16,7 @@ type copyRule struct {
 
 // String representation of a rule. For debugging.
 func (cr copyRule) String() string {
-	return "{" + cr.src.String() + " " + cr.dst + "}"
+	return "\"" + cr.src.String() + " " + cr.dst + "\""
 }
 
 // Checks that given string is a valid regular expression.

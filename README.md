@@ -24,8 +24,9 @@ Copying will overwrite existing files, so use with caution.
 Instruction File Format
 -----------------------
 ### General structure
-A sample instruction file can be found with the main code files.
-The instruction file should be formatted as follows:  
+The instruction file contains the directives for Coppee's actions. It should be encoded in **UTF-8
+without BOM**, and supports all languages. A sample instruction file can be found with the main code
+files. The instruction file should be formatted as follows:  
 ```
 template1
 target1
@@ -61,7 +62,6 @@ ${1}.coppee.${2}
 
 Future Features
 ---------------
-* support UTF-8 instructions
 * choose whether or not to overwrite existing files
 * set output prints on/off
 * add pretend-mode, that only reports what actions will be taken in current configuration
