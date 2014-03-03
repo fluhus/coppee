@@ -37,14 +37,14 @@ func copier(
 				// Overwrite?
 				if !overwrite && fexists(dst) {
 					if verbose {
-						fmt.Println("skipping: '" + path + "'")
+						fmt.Println("skipping: '" + path + "' to '" + dst + "'")
 					}
 					continue
 				}
 				
 				// Print
 				if verbose {
-					fmt.Println("copying: '" + path + "' to '" + dst + "'")
+					fmt.Println("copying:  '" + path + "' to '" + dst + "'")
 				}
 				
 				// Copy
@@ -74,6 +74,8 @@ func main() {
 	// Parse arguments
 	// Accepted argument format: TODO
 	p := arguments.NewParser()
+	overwrite := p.AddBool("-o", "overwrite existing files", false)
+	quiet     := p.AddBool("-q", "quiet mode - no verbose prints", false)
 	args, err := p.Parse(os.Args[1:])
 	
 	if err != nil {
@@ -85,8 +87,14 @@ func main() {
 		return
 	}
 	if len(args) == 0 {
-		fmt.Println("Premature version.\nWill overwrite existing files." +
-				"\n\nUsage:\ncoppee <path>")
+		// TODO implement and use arguments' self information mechanism
+		fmt.Println("*** Premature version ***\n\n" +
+				"Usage:\n" +
+				"coppee <dir> [-o] [-q]\n\n" +
+				"Arguments:\n" +
+				"dir\tTarget directory. Must contain an instruction file named '.coppee'.\n" +
+				"-o\tOverwrite existing target files. Default: false\n" +
+				"-q\tQuiet mode - disable verbose prints. Default: false")
 		return
 	}
 	
@@ -107,11 +115,16 @@ func main() {
 	}
 	
 	// Copy files!
-	walker := copier(inputDir, rules, true, true, true)
+	walker := copier(inputDir, rules, true, *overwrite, !*quiet)
 	err = filepath.Walk(inputDir, walker)
 	if err != nil {
 		fmt.Println("copy error: " + err.Error())
 		return
+	}
+	
+	// Notify debug mode
+	if pretend {
+		fmt.Println("*** PRETEND MODE ***")
 	}
 }
 
