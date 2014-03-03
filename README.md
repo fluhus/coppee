@@ -73,6 +73,7 @@ Version History
 * added overwrite mode
 * added quiet mode
 * added pretend mode
+
 ### 0.1.1
 Fixed a bug that caused mismatches when char-13 was present in the instruction file.
 ### 0.1
