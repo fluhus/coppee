@@ -7,21 +7,20 @@ import (
 	"arguments"
 )
 
-// If true, will only pretend to copy the files. For debugging.
-const pretend = false
-
 // Returns a copier walk-function.
-// basedir:          base walking directory
+// basedir:          base walking directory, must match the directory walked
 // rules:            copying rules
 // collapseOnError:  if true, process will stop upon copying error
 // overwrite:        if true, will overwrite existing files
 // verbose:          if true, will print copies made and errors
+// pretend:          if true, will only pretend to copy files
 func copier(
 		basedir string,
 		rules []copyRule,
 		collapseOnError bool,
 		overwrite bool,
-		verbose bool) filepath.WalkFunc {
+		verbose bool,
+		pretend bool) filepath.WalkFunc {
 	return func(path string, info os.FileInfo, err error) error {
 		// Relative path - matching will be to relative path
 		relPath, relPathErr := filepath.Rel(basedir, path)
@@ -76,6 +75,7 @@ func main() {
 	p := arguments.NewParser()
 	overwrite := p.AddBool("-o", "overwrite existing files", false)
 	quiet     := p.AddBool("-q", "quiet mode - no verbose prints", false)
+	pretend   := p.AddBool("-p", "pretend mode - does not copy files", false)
 	args, err := p.Parse(os.Args[1:])
 	
 	if err != nil {
@@ -90,11 +90,12 @@ func main() {
 		// TODO implement and use arguments' self information mechanism
 		fmt.Println("*** Premature version ***\n\n" +
 				"Usage:\n" +
-				"coppee <dir> [-o] [-q]\n\n" +
+				"coppee <dir> [-o] [-q] [-p]\n\n" +
 				"Arguments:\n" +
 				"dir\tTarget directory. Must contain an instruction file named '.coppee'.\n" +
 				"-o\tOverwrite existing target files. Default: false\n" +
-				"-q\tQuiet mode - disable verbose prints. Default: false")
+				"-q\tQuiet mode, disable verbose prints. Default: false\n" +
+				"-p\tPretend to copy, only print what will be copied. Default: false")
 		return
 	}
 	
@@ -115,7 +116,7 @@ func main() {
 	}
 	
 	// Copy files!
-	walker := copier(inputDir, rules, true, *overwrite, !*quiet)
+	walker := copier(inputDir, rules, true, *overwrite, !*quiet, *pretend)
 	err = filepath.Walk(inputDir, walker)
 	if err != nil {
 		fmt.Println("copy error: " + err.Error())
@@ -123,8 +124,8 @@ func main() {
 	}
 	
 	// Notify debug mode
-	if pretend {
-		fmt.Println("*** PRETEND MODE ***")
+	if *pretend {
+		fmt.Println("*** PRETEND MODE. NO FILES WERE COPIED. ***")
 	}
 }
 

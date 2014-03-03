@@ -17,7 +17,7 @@ How to Compile
 Usage
 -----
 Executing `coppee` will print an informative usage explanation.  
-For basic use type: `coppee <directory>`.
+For basic use execute `coppee <directory>`.
 The target directory must contain a file named **.coppee**. In this file are the
 copying instructions (see dedicated section).
 
@@ -70,7 +70,9 @@ Future Features
 Version History
 ---------------
 ### 0.2
-Added overwrite mode and quiet mode options.
+* added overwrite mode
+* added quiet mode
+* added pretend mode
 ### 0.1.1
 Fixed a bug that caused mismatches when char-13 was present in the instruction file.
 ### 0.1
