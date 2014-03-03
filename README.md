@@ -62,16 +62,16 @@ ${1}.coppee.${2}
 
 Future Features
 ---------------
-* handle subdirectory recursion
-* choose whether or not to ignore i/o errors (right now it exits on error)
-* *features suggested by users*
+* Handle subdirectory recursion.
+* Choose whether or not to ignore i/o errors (right now it exits on error).
+* *Features suggested by users.*
 
 Version History
 ---------------
 ### 0.2
-* added overwrite mode
-* added quiet mode
-* added pretend mode
+* Added overwrite mode.
+* Added quiet mode.
+* Added pretend mode.
 
 ### 0.1.1
 Fixed a bug that caused mismatches when char-13 was present in the instruction file.
