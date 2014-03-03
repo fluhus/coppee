@@ -42,7 +42,7 @@ func readRules(path string) (rules []copyRule, err error) {
 	var s []string
 	for r, rerr := b.ReadString('\n'); rerr == nil; r, rerr = b.ReadString('\n') {
 		// Trim spaces
-		r = strings.Trim(r, " \t\n")
+		r = strings.Trim(r, " \t\n\r")
 
 		// Skip empty line
 		if len(r) == 0 { continue }
