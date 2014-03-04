@@ -12,8 +12,8 @@ import (
 // Holds argument settings and does the parsing.
 type Parser struct {
 	argOrder []string                   // holds the order of received symbols
-	val      map[string]valueParser     // from symbol to corresponding parser
-	noval    map[string]noValueParser   // from symbol to corresponding parser
+	val      map[string]valueParser     // from symbol to corresponding value-argument parser
+	noval    map[string]noValueParser   // from symbol to corresponding no-value-argument parser
 }
 
 // Creates a new empty parser.

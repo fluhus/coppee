@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-// Parses a value argument.
+// Parses a value argument (that is followed by a value of some type).
 type valueParser interface {
 	parse(arg string) error
 }
