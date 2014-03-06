@@ -3,18 +3,24 @@ package arguments
 // Parsers for specific types.
 
 import (
+	"fmt"
 	"errors"
 	"strconv"
 )
 
+// Format of help print.
+const helpPrintFormat = "%s (default: %s)"
+
 // Parses a value argument (that is followed by a value of some type).
 type valueParser interface {
-	parse(arg string) error
+	parse(arg string) error   // parses the given argument
+	helpPrint() string        // help print that contains description and default value
 }
 
 // Parses a boolean argument (that is not followed by a value).
 type noValueParser interface {
-	parse() error
+	parse() error             // parses a boolean argument
+	helpPrint() string        // help print that contains description and default value
 }
 
 // Common structure of a parser.
@@ -56,6 +62,13 @@ func (p *intParser) parse(arg string) error {
 	return nil
 }
 
+// Returns help print string.
+func (p *intParser) helpPrint() string {
+	return fmt.Sprintf( helpPrintFormat,
+			p.description,
+			fmt.Sprintf("%d", p.defaultVal) )
+}
+
 // Parses floats.
 type floatParser struct {
 	generalParser      // embedded common parser fields
@@ -88,6 +101,13 @@ func (p *floatParser) parse(arg string) error {
 	return nil
 }
 
+// Returns help print string.
+func (p *floatParser) helpPrint() string {
+	return fmt.Sprintf( helpPrintFormat,
+			p.description,
+			fmt.Sprintf("%f", p.defaultVal) )
+}
+
 // Parses strings.
 type stringParser struct {
 	generalParser      // embedded common parser fields
@@ -112,6 +132,13 @@ func (p *stringParser) parse(arg string) error {
 	// Assign output
 	*(p.p) = arg
 	return nil
+}
+
+// Returns help print string.
+func (p *stringParser) helpPrint() string {
+	return fmt.Sprintf( helpPrintFormat,
+			p.description,
+			fmt.Sprintf("\"%s\"", p.defaultVal) )
 }
 
 // Parses boolean arguments (with no following value).
@@ -139,3 +166,13 @@ func (p *boolParser) parse() error {
 	*(p.p) = !*(p.p)
 	return nil
 }
+
+// Returns help print string.
+func (p *boolParser) helpPrint() string {
+	return fmt.Sprintf( helpPrintFormat,
+			p.description,
+			fmt.Sprintf("%t", p.defaultVal) )
+}
+
+
+
