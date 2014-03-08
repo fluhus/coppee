@@ -1,4 +1,4 @@
-Coppee (0.2)
+Coppee (0.2.1)
 ============
 An automatic file copier.
 Programatically define file name templates and targets, and Coppee will copy
@@ -24,8 +24,9 @@ copying instructions (see dedicated section).
 Instruction File Format
 -----------------------
 ### General structure
-The instruction file contains the directives for Coppee's actions. It should be encoded in **UTF-8
-without BOM** (Notepad++ makes it easy), and supports all languages. A sample instruction file can be
+The instruction file contains the directives for Coppee's actions. It should be
+encoded in UTF-8 (Notepad++ makes it easy), and supports all languages. A
+sample instruction file can be
 found with the main code files. The instruction file should be formatted as follows:  
 ```
 template1
@@ -68,6 +69,9 @@ Future Features
 
 Version History
 ---------------
+### 0.2.1
+Added BOM tolerance.
+
 ### 0.2
 * Added overwrite mode.
 * Added quiet mode.
