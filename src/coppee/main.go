@@ -90,19 +90,19 @@ func main() {
 		return
 	}
 	if len(args) > 1 {
-		fmt.Println("argument error: too many arguments.", args, *pretend)
+		fmt.Println("argument error: too many arguments.")
 		return
 	}
 	if len(args) == 0 {
 		// TODO add a parser-dependent default print
 		fmt.Println("*** Premature version ***\n\n" +
 				"Usage:\n" +
-				"coppee <dir> [-o] [-q] [-p]\n\n" +
+				"coppee [-o] [-q] [-p] <dir>\n\n" +
 				"Arguments:\n" +
-				"dir\tTarget directory. Must contain an instruction file named '.coppee'.\n" +
-				"-o\tOverwrite existing target files. Default: false\n" +
-				"-q\tQuiet mode, disable verbose prints. Default: false\n" +
-				"-p\tPretend to copy, only print what will be copied. Default: false")
+				"-o\tOverwrite existing target files. (default: false)\n" +
+				"-q\tQuiet mode, disable verbose prints. (default: false)\n" +
+				"-p\tPretend to copy, only print what will be copied. (default: false)\n" +
+				"dir\tTarget directory. Must contain an instruction file named '.coppee'.")
 		return
 	}
 	

@@ -1,5 +1,5 @@
-Coppee (0.2.1)
-============
+Coppee (0.3.1)
+==============
 An automatic file copier.
 Programatically define file name templates and targets, and Coppee will copy
 them automatically.
@@ -72,6 +72,10 @@ Future Features
 
 Version History
 ---------------
+### 0.3.1
+* Changed order of command line arguments.
+* Now ignoring '.'.
+
 ### 0.2.1
 Added BOM tolerance.
 
