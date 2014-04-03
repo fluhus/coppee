@@ -71,7 +71,7 @@ func copier(
 
 func main() {
 	// Parse arguments
-	// Accepted argument format: TODO
+	// TODO move from 'arguments' to 'flag'
 	p := arguments.NewParser()
 	overwrite := p.AddBool("-o", "overwrite existing files", false)
 	quiet     := p.AddBool("-q", "quiet mode - no verbose prints", false)
@@ -128,7 +128,6 @@ func main() {
 		fmt.Println("*** PRETEND MODE. NO FILES WERE COPIED. ***")
 	}
 }
-
 
 
 
