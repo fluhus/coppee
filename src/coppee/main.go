@@ -3,8 +3,9 @@ package main
 import (
 	"os"
 	"fmt"
+	"io/ioutil"
 	"path/filepath"
-	"arguments"
+	"flag"
 )
 
 // Returns a copier walk-function.
@@ -72,11 +73,12 @@ func copier(
 func main() {
 	// Parse arguments
 	// TODO move from 'arguments' to 'flag'
-	p := arguments.NewParser()
-	overwrite := p.AddBool("-o", "overwrite existing files", false)
-	quiet     := p.AddBool("-q", "quiet mode - no verbose prints", false)
-	pretend   := p.AddBool("-p", "pretend mode - does not copy files", false)
-	args, err := p.Parse(os.Args[1:])
+	p := flag.NewFlagSet("coppee", flag.ContinueOnError)
+	p.SetOutput(ioutil.Discard)
+	overwrite := p.Bool("o", false, "overwrite existing files")
+	quiet     := p.Bool("q", false, "quiet mode - no verbose prints")
+	pretend   := p.Bool("p", false, "pretend mode - does not copy files")
+	err, args := p.Parse(os.Args[1:]), p.Args()
 	
 	if err != nil {
 		fmt.Println("argument error: " + err.Error())
@@ -87,7 +89,7 @@ func main() {
 		return
 	}
 	if len(args) == 0 {
-		// TODO implement and use arguments' self information mechanism
+		// TODO add a parser-dependent default print
 		fmt.Println("*** Premature version ***\n\n" +
 				"Usage:\n" +
 				"coppee <dir> [-o] [-q] [-p]\n\n" +
