@@ -73,7 +73,7 @@ Version History
 ---------------
 ### 0.3.1
 * Changed order of command line arguments.
-* Now ignoring '.'.
+* Fixed a bug that folder were attempted to be copied like files.
 
 ### 0.2.1
 Added BOM tolerance.

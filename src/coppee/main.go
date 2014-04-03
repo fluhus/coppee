@@ -27,8 +27,8 @@ func copier(
 		relPath, relPathErr := filepath.Rel(basedir, path)
 		if relPathErr != nil { panic(relPathErr.Error()) } // should not happen
 		
-		// Ignore '.' - this is the current directory
-		if relPath == "." {
+		// Don't try to copy directories
+		if info.IsDir() {
 			return nil
 		}
 
