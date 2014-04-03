@@ -65,7 +65,6 @@ Future Features
 ---------------
 * Handle subdirectory recursion.
 * Choose whether or not to ignore i/o errors (right now it exits on error).
-* Ignore '.' (current folder).
 * Option for a *not* regex (copy all files that *don't* match this).
 * Target for files that didn't match any regex.
 * *Features suggested by users.*
