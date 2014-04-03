@@ -26,6 +26,11 @@ func copier(
 		// Relative path - matching will be to relative path
 		relPath, relPathErr := filepath.Rel(basedir, path)
 		if relPathErr != nil { panic(relPathErr.Error()) } // should not happen
+		
+		// Ignore '.' - this is the current directory
+		if relPath == "." {
+			return nil
+		}
 
 		for _,rule := range rules {
 			// Check if filename matches
@@ -85,7 +90,7 @@ func main() {
 		return
 	}
 	if len(args) > 1 {
-		fmt.Println("argument error: too many arguments.")
+		fmt.Println("argument error: too many arguments.", args, *pretend)
 		return
 	}
 	if len(args) == 0 {
