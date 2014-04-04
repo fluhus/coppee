@@ -7,78 +7,11 @@ import (
 	"path/filepath"
 	"flag"
 	"parser"
+	"walker"
 )
-
-// Returns a copier walk-function.
-// basedir:          base walking directory, must match the directory walked
-// rules:            copying rules
-// collapseOnError:  if true, process will stop upon copying error
-// overwrite:        if true, will overwrite existing files
-// verbose:          if true, will print copies made and errors
-// pretend:          if true, will only pretend to copy files
-func copier(
-		basedir string,
-		rules []parser.CopyRule,
-		collapseOnError bool,
-		overwrite bool,
-		verbose bool,
-		pretend bool) filepath.WalkFunc {
-	return func(path string, info os.FileInfo, err error) error {
-		// Relative path - matching will be to relative path
-		relPath, relPathErr := filepath.Rel(basedir, path)
-		if relPathErr != nil { panic(relPathErr.Error()) } // should not happen
-		
-		// Don't try to copy directories
-		if info.IsDir() {
-			return nil
-		}
-
-		for _,rule := range rules {
-			// Check if filename matches
-			// 'path' is source file name
-			if globalMatch(rule.Src, relPath) {
-				// Destination file
-				dst := rule.Src.ReplaceAllString(path, rule.Dst)
-
-				// Overwrite?
-				if !overwrite && fexists(dst) {
-					if verbose {
-						fmt.Println("skipping: '" + path + "' to '" + dst + "'")
-					}
-					continue
-				}
-				
-				// Print
-				if verbose {
-					fmt.Println("copying:  '" + path + "' to '" + dst + "'")
-				}
-				
-				// Copy
-				var cerr error
-				if !pretend {
-					_, cerr = fcopy(dst, path)
-				}
-				
-				// If copy failed
-				if cerr != nil {
-					if verbose {
-						fmt.Println(cerr.Error())
-					}
-					if collapseOnError {
-						// Returning the error will cause the walking to stop
-						return cerr
-					}
-				}
-			}
-		}
-		
-		return nil
-	}
-}
 
 func main() {
 	// Parse arguments
-	// TODO move from 'arguments' to 'flag'
 	p := flag.NewFlagSet("coppee", flag.ContinueOnError)
 	p.SetOutput(ioutil.Discard)
 	overwrite := p.Bool("o", false, "overwrite existing files")
@@ -124,7 +57,7 @@ func main() {
 	}
 	
 	// Copy files!
-	walker := copier(inputDir, rules, true, *overwrite, !*quiet, *pretend)
+	walker := walker.Copier(inputDir, rules, true, *overwrite, !*quiet, *pretend)
 	err = filepath.Walk(inputDir, walker)
 	if err != nil {
 		fmt.Println("copy error: " + err.Error())

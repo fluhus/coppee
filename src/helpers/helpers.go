@@ -1,6 +1,5 @@
-package main
-
-// General helper functions
+// General helper functions.
+package helpers
 
 import (
 	"regexp"
@@ -12,13 +11,13 @@ import (
 
 // Searches for a global match of the string to the given regexp.
 // Returns true is matches, false if not.
-func globalMatch(re *regexp.Regexp, s string) bool {
+func GlobalMatch(re *regexp.Regexp, s string) bool {
 	return len(re.FindString(s)) == len(s)
 }
 
 // Checks whether a file exists.
 // Returns true if exists, false if not.
-func fexists(file string) bool {
+func FExists(file string) bool {
 	if _,e := os.Stat(file); os.IsNotExist(e) {
 		return false
 	}
@@ -26,8 +25,9 @@ func fexists(file string) bool {
 }
 
 // Copies a file.
-// Returns nil if successful, or the relevant error if not.
-func fcopy(dst, src string) (written int64, err error) {
+// Returns nil and the number of copied bytes if successful,
+// or the relevant error if not.
+func FCopy(dst, src string) (written int64, err error) {
 	// Open input file
 	in, ine := os.Open(src)
 	if ine != nil {
