@@ -1,4 +1,4 @@
-package main
+package parser
 
 import (
 	"os"
@@ -10,17 +10,17 @@ import (
 )
 
 // Holds a template source file and its destination.
-type copyRule struct {
-	src *regexp.Regexp  // source file template regex
-	dst string          // destination path
-	negated bool        // if true, will copy non-matching files
+type CopyRule struct {
+	Src *regexp.Regexp  // source file template regex
+	Dst string          // destination path
+	Negated bool        // if true, will copy non-matching files
 }
 
 // String representation of a rule. For debugging.
-func (cr copyRule) String() string {
+func (cr CopyRule) String() string {
 	negated := ""
-	if cr.negated { negated = " negated" }
-	return fmt.Sprintf("(\"%s\" \"%s\"%s)", cr.src.String(), cr.dst, negated)
+	if cr.Negated { negated = " negated" }
+	return fmt.Sprintf("(\"%s\" \"%s\"%s)", cr.Src.String(), cr.Dst, negated)
 }
 
 // Checks that given string is a valid regular expression.
@@ -45,7 +45,7 @@ const charsToTrim = " \t\n\r\xef\xbb\xbf"
 
 // Reads copy rules from a config file. Returns an error if file not found
 // or badly formatted.
-func readRules(path string) (rules []copyRule, err error) {
+func ReadRules(path string) (rules []CopyRule, err error) {
 	// Open file
 	f, ferr := os.Open(path)
 	if ferr != nil {
@@ -96,21 +96,21 @@ func readRules(path string) (rules []copyRule, err error) {
 			}
 			
 			// We're all done, add regex
-			rules = append(rules, copyRule{regexp.MustCompile(r), "", negated})
+			rules = append(rules, CopyRule{regexp.MustCompile(r), "", negated})
 			
 			state = !state
 			
 		// If expecting target, add to last rule
 		} else {
-			rules[len(rules) - 1].dst = r
+			rules[len(rules) - 1].Dst = r
 			state = !state
 		}
 	}
 	
 	// Check that last rule has a target
-	if rules[len(rules) - 1].dst == "" {
+	if rules[len(rules) - 1].Dst == "" {
 		err = errors.New("source with no target: " +
-				rules[len(rules) - 1].src.String())
+				rules[len(rules) - 1].Src.String())
 		return
 	}
 

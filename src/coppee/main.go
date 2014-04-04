@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"flag"
+	"parser"
 )
 
 // Returns a copier walk-function.
@@ -17,7 +18,7 @@ import (
 // pretend:          if true, will only pretend to copy files
 func copier(
 		basedir string,
-		rules []copyRule,
+		rules []parser.CopyRule,
 		collapseOnError bool,
 		overwrite bool,
 		verbose bool,
@@ -35,9 +36,9 @@ func copier(
 		for _,rule := range rules {
 			// Check if filename matches
 			// 'path' is source file name
-			if globalMatch(rule.src, relPath) {
+			if globalMatch(rule.Src, relPath) {
 				// Destination file
-				dst := rule.src.ReplaceAllString(path, rule.dst)
+				dst := rule.Src.ReplaceAllString(path, rule.Dst)
 
 				// Overwrite?
 				if !overwrite && fexists(dst) {
@@ -116,7 +117,7 @@ func main() {
 	
 	// Parse copy rules
 	inputFile := filepath.Join(inputDir, ".coppee")
-	rules, err := readRules(inputFile)
+	rules, err := parser.ReadRules(inputFile)
 	if err != nil {
 		fmt.Println("rule parse error: " + err.Error())
 		return
