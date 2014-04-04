@@ -66,8 +66,12 @@ Future Features
 * Option for a *not* regex (copy all files that *don't* match this template).
 * Target for files that didn't match any regex.
 * Choose whether or not to ignore i/o errors (right now it exits on error).
-* Handle subdirectory recursion.
 * *Features suggested by users.*
+
+Tasks
+-----
+* Write tests.
+* Handle subdirectory recursion.
 
 Version History
 ---------------
@@ -80,7 +84,7 @@ Version History
 * Fixed a bug that folder were attempted to be copied like files.
 
 ### 0.2.1
-Added BOM tolerance.
+* Added BOM tolerance.
 
 ### 0.2
 * Added overwrite mode.
@@ -88,8 +92,8 @@ Added BOM tolerance.
 * Added pretend mode.
 
 ### 0.1.1
-Fixed a bug that caused mismatches when char-13 was present in the instruction file.
+* Fixed a bug that caused mismatches when char-13 was present in the instruction file.
 ### 0.1
-First functional version. Should be stable, though not fully functional.
+* First functional version. Should be stable, though not fully functional.
 
 
