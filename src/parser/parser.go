@@ -57,7 +57,11 @@ func ReadRules(path string) (rules []CopyRule, err error) {
 	state := nextIsTemplate
 
 	// Scan lines
+	lineNumber := 0       // number of current line
+	lineLastTemp := -1    // line of the last encountered template
 	for r, rerr := b.ReadString('\n'); rerr == nil; r, rerr = b.ReadString('\n') {
+		lineNumber++
+		
 		// Trim spaces and BOM
 		r = strings.Trim(r, charsToTrim)
 
@@ -78,8 +82,9 @@ func ReadRules(path string) (rules []CopyRule, err error) {
 				
 				// Only '!' without a template is not allowed
 				if len(r) == 0 {
-					err = errors.New("expected regular expression after " +
-							"negation operator")
+					err = errors.New(
+							fmt.Sprintf("line %d: expected regular expression " +
+							"after negation operator", lineNumber))
 					return
 				}
 				
@@ -91,26 +96,27 @@ func ReadRules(path string) (rules []CopyRule, err error) {
 			
 			// Verify regex
 			if !isRegexp(r) {
-				err = errors.New("invalid regular expression: " + r)
+				err = errors.New(fmt.Sprintf("line %d: invalid regular " +
+						"expression: %s", lineNumber, r))
 				return
 			}
 			
 			// We're all done, add regex
 			rules = append(rules, CopyRule{regexp.MustCompile(r), "", negated})
-			
-			state = !state
+			lineLastTemp = lineNumber
 			
 		// If expecting target, add to last rule
 		} else {
 			rules[len(rules) - 1].Dst = r
-			state = !state
 		}
+		
+		state = !state
 	}
 	
 	// Check that last rule has a target
 	if rules[len(rules) - 1].Dst == "" {
-		err = errors.New("source with no target: " +
-				rules[len(rules) - 1].Src.String())
+		err = errors.New(fmt.Sprintf("line %d: source with no target: %s",
+				lineLastTemp, rules[len(rules) - 1].Src.String()))
 		return
 	}
 

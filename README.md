@@ -1,4 +1,4 @@
-Coppee (0.3.1)
+Coppee (0.3.2)
 ==============
 An automatic file copier.
 Programatically define file name templates and targets, and Coppee will copy
@@ -64,7 +64,6 @@ ${1}.coppee.${2}
 Future Features
 ---------------
 * Option for a *not* regex (copy all files that *don't* match this template).
-* Add line numbers to errors.
 * Target for files that didn't match any regex.
 * Choose whether or not to ignore i/o errors (right now it exits on error).
 * Handle subdirectory recursion.
@@ -72,6 +71,10 @@ Future Features
 
 Version History
 ---------------
+### 0.3.2
+* Split code into packages.
+* Added line numbers to errors.
+
 ### 0.3.1
 * Changed order of command line arguments.
 * Fixed a bug that folder were attempted to be copied like files.
