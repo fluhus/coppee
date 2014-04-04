@@ -63,10 +63,11 @@ ${1}.coppee.${2}
 
 Future Features
 ---------------
-* Handle subdirectory recursion.
-* Choose whether or not to ignore i/o errors (right now it exits on error).
-* Option for a *not* regex (copy all files that *don't* match this).
+* Option for a *not* regex (copy all files that *don't* match this template).
+* Add line numbers to errors.
 * Target for files that didn't match any regex.
+* Choose whether or not to ignore i/o errors (right now it exits on error).
+* Handle subdirectory recursion.
 * *Features suggested by users.*
 
 Version History
