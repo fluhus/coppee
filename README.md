@@ -36,8 +36,10 @@ template2
 target2
 ...
 ```
-Each template is a regular expression, followed by its specific target. File names that match
-the template, will be copied and named according to the target.
+Each template is a regular expression, followed by its specific target.
+File names that match the template, will be copied and named according to
+the target. The regular expressions should match the syntax specified
+[here](http://code.google.com/p/re2/wiki/Syntax).
 
 ### Capturing groups
 You can refer to
