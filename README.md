@@ -1,4 +1,4 @@
-Coppee (0.3.2)
+Coppee (0.4.0)
 ==============
 An automatic file copier.
 Programatically define file name templates and targets, and Coppee will copy
@@ -37,6 +37,7 @@ target2
 ```
 Each template is a regular expression, followed by its specific target. File names that match
 the template, will be copied and named according to the target.
+
 ### Capturing groups
 You can refer to
 the source's name in the target, using capturing groups:
@@ -48,6 +49,7 @@ The expression `${1}` will be replaced by the expression matched by the first
 parenthesized group. In the same way, `${2}` will be replaced by the second
 parenthesized expression, etc. In the above example, a file named **lecture_13.ppt** will
 be copied to a file named **lesson_13.ppt**.
+
 ### Comments and empty lines
 Comments are lines that start with `//`. Comments and empty lines are ignored by
 the parser.
@@ -61,9 +63,37 @@ the parser.
 ${1}.coppee.${2}
 ```
 
+### Nagated templates
+Coppee can also copy all files that *don't* match a certain template.
+To do that, add `!` before the template. Spaces are allowed between the `!`
+and the template itself, for readability.
+
+#### Capturing groups
+Ok, so now you're probably thinking "how am I gonna use capturing groups on a
+mismatch?" Lucky for you, we got that covered:  
+${0} will be replaced by the entire file name, including directories.  
+${1} will be replaced by the directories, including the last separator.  
+${2} will be replaced by the file's prefix, up to the last period.  
+${3} will be replaced by the file's suffix, including the period.
+
+#### Examples
+```
+// Copy all except .log files, preserve paths (relative to input directory)
+! .*\.log
+C:\backup\${0}
+
+// Add '_copy' to the prefix of files that don't begin with a 'd'
+// a.txt will be copied to a_copy.txt
+!d.*
+${2}_copy{3}
+
+// Match files that begin with '!' (with regular capturing)
+\!.*
+important\${0}
+```
+
 Future Features
 ---------------
-* Option for a *not* regex (copy all files that *don't* match this template).
 * Target for files that didn't match any regex.
 * Choose whether or not to ignore i/o errors (right now it exits on error).
 * *Features suggested by users.*
@@ -75,6 +105,9 @@ Tasks
 
 Version History
 ---------------
+### 0.4.0
+* Added negated templates.
+
 ### 0.3.2
 * Split code into packages.
 * Added line numbers to errors.
@@ -93,6 +126,7 @@ Version History
 
 ### 0.1.1
 * Fixed a bug that caused mismatches when char-13 was present in the instruction file.
+
 ### 0.1
 * First functional version. Should be stable, though not fully functional.
 

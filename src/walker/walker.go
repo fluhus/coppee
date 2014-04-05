@@ -12,7 +12,7 @@ import (
 
 // Returns a copier walk function.
 //
-// basedir: base walking directory, must match the directory walked
+// baseDir: base walking directory, must match the directory walked
 //
 // rules: array of copying rules by whom to copy
 //
@@ -24,15 +24,17 @@ import (
 //
 // pretend: if true, will only pretend to copy files
 func Copier(
-		basedir string,
+		baseDir string,
 		rules []parser.CopyRule,
 		collapseOnError bool,
 		overwrite bool,
 		verbose bool,
 		pretend bool) filepath.WalkFunc {
 	return func(path string, info os.FileInfo, err error) error {
-		// Relative path - matching will be to relative path
-		relPath, relPathErr := filepath.Rel(basedir, path)
+		// Path - relative to shell directory.
+		// Relative path - relative to walked directory.
+		// Matching will be to relative path.
+		relPath, relPathErr := filepath.Rel(baseDir, path)
 		if relPathErr != nil { panic(relPathErr.Error()) } // should not happen
 		
 		// Don't try to copy directories
@@ -41,29 +43,28 @@ func Copier(
 		}
 
 		for _,rule := range rules {
-			// Check if filename matches
-			// 'path' is source file name
-			if helpers.GlobalMatch(rule.Src, relPath) {
-				// Destination file
-				dst := rule.Src.ReplaceAllString(path, rule.Dst)
-
+			// Apply rule
+			relTarget, shouldCopy := rule.Apply(relPath)  // relative to walked dir
+			target := filepath.Join(baseDir, relTarget)   // relative to shell dir
+			
+			if shouldCopy {
 				// Overwrite?
-				if !overwrite && helpers.FExists(dst) {
+				if !overwrite && helpers.FExists(target) {
 					if verbose {
-						fmt.Println("skipping: '" + path + "' to '" + dst + "'")
+						fmt.Println("skipping: '" + path + "' to '" + target + "'")
 					}
 					continue
 				}
 				
 				// Print
 				if verbose {
-					fmt.Println("copying:  '" + path + "' to '" + dst + "'")
+					fmt.Println("copying:  '" + path + "' to '" + target + "'")
 				}
 				
 				// Copy
 				var cerr error
 				if !pretend {
-					_, cerr = helpers.FCopy(dst, path)
+					_, cerr = helpers.FCopy(target, path)
 				}
 				
 				// If copy failed

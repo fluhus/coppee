@@ -9,20 +9,6 @@ import (
 	"strings"
 )
 
-// Holds a template source file and its destination.
-type CopyRule struct {
-	Src *regexp.Regexp  // source file template regex
-	Dst string          // destination path
-	Negated bool        // if true, will copy non-matching files
-}
-
-// String representation of a rule. For debugging.
-func (cr CopyRule) String() string {
-	negated := ""
-	if cr.Negated { negated = " negated" }
-	return fmt.Sprintf("(\"%s\" \"%s\"%s)", cr.Src.String(), cr.Dst, negated)
-}
-
 // Checks that given string is a valid regular expression.
 // Returns true if valid, false if invalid.
 func isRegexp(s string) bool {
@@ -58,7 +44,9 @@ func ReadRules(path string) (rules []CopyRule, err error) {
 
 	// Scan lines
 	lineNumber := 0       // number of current line
-	lineLastTemp := -1    // line of the last encountered template
+	lastTemp := ""        // last encountered template
+	lastTempLine := -1    // line of the last encountered template,
+	                      // for error reporting
 	for r, rerr := b.ReadString('\n'); rerr == nil; r, rerr = b.ReadString('\n') {
 		lineNumber++
 		
@@ -71,8 +59,11 @@ func ReadRules(path string) (rules []CopyRule, err error) {
 		// Skip comments
 		if len(r) >= 2 && r[0:2] == "//" { continue }
 
+		//TODO move rule making to the rules' territory
 		// If expecting template, create regex
 		if state == nextIsTemplate {
+			lastTemp = r
+			lastTempLine = lineNumber
 		
 			// Check for negation - denotd by '!'
 			negated := false
@@ -102,21 +93,26 @@ func ReadRules(path string) (rules []CopyRule, err error) {
 			}
 			
 			// We're all done, add regex
-			rules = append(rules, CopyRule{regexp.MustCompile(r), "", negated})
-			lineLastTemp = lineNumber
+			if negated {
+				rules = append(rules, newNegatedRule())
+			} else {
+				rules = append(rules, newSimpleRule())
+			}
+			
+			rules[len(rules) - 1].setTemplate(r)
 			
 		// If expecting target, add to last rule
 		} else {
-			rules[len(rules) - 1].Dst = r
+			rules[len(rules) - 1].setTarget(r)
 		}
 		
 		state = !state
 	}
 	
 	// Check that last rule has a target
-	if rules[len(rules) - 1].Dst == "" {
+	if state == nextIsTarget {
 		err = errors.New(fmt.Sprintf("line %d: source with no target: %s",
-				lineLastTemp, rules[len(rules) - 1].Src.String()))
+				lastTempLine, lastTemp))
 		return
 	}
 

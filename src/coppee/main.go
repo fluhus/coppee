@@ -1,13 +1,15 @@
+// An automatic file copier. Execute with no parameters for explanation on the
+// accepted parameters. See the readme for detailed usage instructions.
 package main
 
 import (
 	"os"
 	"fmt"
-	"io/ioutil"
-	"path/filepath"
 	"flag"
 	"parser"
 	"walker"
+	"io/ioutil"
+	"path/filepath"
 )
 
 func main() {
@@ -29,7 +31,7 @@ func main() {
 	}
 	if len(args) == 0 {
 		// TODO add a parser-dependent default print
-		fmt.Println("*** Premature version ***\n\n" +
+		fmt.Println("*** Premature version 0.4.0 ***\n\n" +
 				"Usage:\n" +
 				"coppee [-o] [-q] [-p] <dir>\n\n" +
 				"Arguments:\n" +
