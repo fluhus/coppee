@@ -4,7 +4,8 @@ An automatic file copier.
 Programatically define file name templates and targets, and Coppee will copy
 them automatically.
 
-Please feel free to report bugs, comments and requests to **doctor_troll at walla dot com**
+Please feel free to report bugs, comments and requests to
+**doctor_troll at walla dot com**
 
 How to Compile
 --------------
@@ -94,6 +95,7 @@ important\${0}
 
 Future Features
 ---------------
+* Option to choose a different instruction file.
 * Target for files that didn't match any regex.
 * Choose whether or not to ignore i/o errors (right now it exits on error).
 * *Features suggested by users.*
