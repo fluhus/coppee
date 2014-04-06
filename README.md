@@ -74,11 +74,13 @@ and the template itself, for readability.
 
 #### Capturing groups
 Ok, so now you're probably thinking "how am I gonna use capturing groups on a
-mismatch?" Lucky for you, we got that covered:  
-${0} will be replaced by the entire file name, including directories.  
-${1} will be replaced by the directories, including the last separator.  
-${2} will be replaced by the file's prefix, up to the last period.  
-${3} will be replaced by the file's suffix, including the period.
+mismatch?" Lucky for you, we got that covered:
+* `${0}` will be replaced by the entire file name, including directories.
+* `${1}` will be replaced by the directories, including the last separator.
+* `${2}` will be replaced by the file's prefix, up to the last period.
+* `${3}` will be replaced by the file's suffix, including the period.
+
+Meaning that `${0}` is equivalent to `${1}${2}${3}`.
 
 #### Examples
 ```
@@ -89,7 +91,7 @@ C:\backup\${0}
 // Add '_copy' to the prefix of files that don't begin with a 'd'
 // a.txt will be copied to a_copy.txt
 !d.*
-${2}_copy{3}
+${1}${2}_copy${3}
 
 // Match files that begin with '!' (with regular capturing)
 \!.*
@@ -98,13 +100,14 @@ important\${0}
 
 Future Features
 ---------------
+* Option to redirect output to different files.
 * Target for files that didn't match any regex.
 * Choose whether or not to ignore i/o errors (right now it exits on error).
 * *Features suggested by users.*
 
 Tasks
 -----
-* Write tests.
+* Write tests. Oh lazy me...
 * Handle subdirectory recursion.
 
 Version History
