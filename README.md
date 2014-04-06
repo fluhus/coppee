@@ -1,4 +1,4 @@
-Coppee (0.4.0)
+Coppee (0.4.1)
 ==============
 An automatic file copier.
 Programatically define file name templates and targets, and Coppee will copy
@@ -19,7 +19,7 @@ Usage
 -----
 Executing `coppee` will print an informative usage explanation.  
 For basic use execute `coppee <directory>`.
-The target directory must contain a file named **.coppee**. In this file are the
+The target directory should contain a file named **.coppee**. In this file are the
 copying instructions (see dedicated section).
 
 Instruction File Format
@@ -38,7 +38,8 @@ target2
 ```
 Each template is a regular expression, followed by its specific target.
 File names that match the template, will be copied and named according to
-the target. The regular expressions should match the syntax specified
+the target. Paths of the files will be relative to the input directory.
+The regular expressions should match the syntax specified
 [here](http://code.google.com/p/re2/wiki/Syntax).
 
 ### Capturing groups
@@ -97,7 +98,6 @@ important\${0}
 
 Future Features
 ---------------
-* Option to choose a different instruction file.
 * Target for files that didn't match any regex.
 * Choose whether or not to ignore i/o errors (right now it exits on error).
 * *Features suggested by users.*
@@ -109,6 +109,9 @@ Tasks
 
 Version History
 ---------------
+### 0.4.1
+* Added option to choose an input instruction file.
+
 ### 0.4.0
 * Added negated templates.
 
