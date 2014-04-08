@@ -1,3 +1,4 @@
+// Parses the input instruction file into a set of copy rules.
 package parser
 
 import (
@@ -40,9 +41,9 @@ func ReadRules(path string) (rules []CopyRule, err error) {
 	}
 
 	b := bufio.NewReader(f)
-	state := nextIsTemplate
 
 	// Scan lines
+	state := nextIsTemplate
 	lineNumber := 0       // number of current line
 	lastTemp := ""        // last encountered template
 	lastTempLine := -1    // line of the last encountered template,
@@ -59,13 +60,13 @@ func ReadRules(path string) (rules []CopyRule, err error) {
 		// Skip comments
 		if len(r) >= 2 && r[0:2] == "//" { continue }
 
-		//TODO move rule making to the rules' territory
+		//TODO move rule creation to the rules' territory?
 		// If expecting template, create regex
 		if state == nextIsTemplate {
 			lastTemp = r
 			lastTempLine = lineNumber
 		
-			// Check for negation - denotd by '!'
+			// Check for negation - denoted by '!'
 			negated := false
 			if r[0] == '!' {
 				negated = true

@@ -2,11 +2,11 @@
 package helpers
 
 import (
+	"os"
+	"io"
+	"bufio"
 	"regexp"
 	"errors"
-	"os"
-	"bufio"
-	"io"
 )
 
 // Searches for a global match of the string to the given regexp.

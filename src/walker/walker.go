@@ -3,11 +3,11 @@
 package walker
 
 import (
-	"path/filepath"
-	"parser"
 	"os"
 	"fmt"
+	"parser"
 	"helpers"
+	"path/filepath"
 )
 
 // Returns a copier walk function.
@@ -62,19 +62,19 @@ func Copier(
 				}
 				
 				// Copy
-				var cerr error
+				var copyErr error
 				if !pretend {
-					_, cerr = helpers.FileCopy(target, path)
+					_, copyErr = helpers.FileCopy(target, path)
 				}
 				
 				// If copy failed
-				if cerr != nil {
+				if copyErr != nil {
 					if verbose {
-						fmt.Println(cerr.Error())
+						fmt.Println(copyErr.Error())
 					}
 					if collapseOnError {
 						// Returning the error will cause the walking to stop
-						return cerr
+						return copyErr
 					}
 				}
 			}
