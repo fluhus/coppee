@@ -49,7 +49,7 @@ func Copier(
 			
 			if shouldCopy {
 				// Overwrite?
-				if !overwrite && helpers.FExists(target) {
+				if !overwrite && helpers.FileExists(target) {
 					if verbose {
 						fmt.Println("skipping: '" + path + "' to '" + target + "'")
 					}
@@ -64,7 +64,7 @@ func Copier(
 				// Copy
 				var cerr error
 				if !pretend {
-					_, cerr = helpers.FCopy(target, path)
+					_, cerr = helpers.FileCopy(target, path)
 				}
 				
 				// If copy failed

@@ -17,7 +17,7 @@ func GlobalMatch(re *regexp.Regexp, s string) bool {
 
 // Checks whether a file exists.
 // Returns true if exists, false if not.
-func FExists(file string) bool {
+func FileExists(file string) bool {
 	if _,e := os.Stat(file); os.IsNotExist(e) {
 		return false
 	}
@@ -27,7 +27,7 @@ func FExists(file string) bool {
 // Copies a file.
 // Returns nil and the number of copied bytes if successful,
 // or the relevant error if not.
-func FCopy(dst, src string) (written int64, err error) {
+func FileCopy(dst, src string) (written int64, err error) {
 	// Open input file
 	in, ine := os.Open(src)
 	if ine != nil {
