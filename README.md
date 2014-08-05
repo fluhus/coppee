@@ -6,6 +6,11 @@ targets, and Coppee will copy them automatically.
 Please feel free to report bugs, comments and requests to
 **doctor_troll at walla dot com**
 
+[Project home](https://github.com/fluhus/coppee)
+
+[Download page]
+(https://www.dropbox.com/sh/retpososr9cf5kn/AADZCCGuOUuaANKEDmp25p4ga)
+
 How to Compile
 --------------
 * Make sure you have a **go** compiler.
