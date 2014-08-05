@@ -112,6 +112,9 @@ Tasks
 
 Version History
 ---------------
+### 0.4.2
+* Slightly improved help print.
+
 ### 0.4.1
 * Added option to choose an input instruction file.
 
