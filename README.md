@@ -1,4 +1,4 @@
-Coppee (0.4.1)
+Coppee (0.4.2)
 ==============
 An automatic file copier. Programatically define file name templates and
 targets, and Coppee will copy them automatically.
