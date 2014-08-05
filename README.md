@@ -1,8 +1,7 @@
 Coppee (0.4.1)
 ==============
-An automatic file copier.
-Programatically define file name templates and targets, and Coppee will copy
-them automatically.
+An automatic file copier. Programatically define file name templates and
+targets, and Coppee will copy them automatically.
 
 Please feel free to report bugs, comments and requests to
 **doctor_troll at walla dot com**
