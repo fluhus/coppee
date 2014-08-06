@@ -32,7 +32,7 @@ func main() {
 	}
 	if len(args) == 0 {
 		// TODO add a parser-dependent default print
-		fmt.Println("*** Premature version 0.4.2 ***\n\n" +
+		fmt.Println("*** Premature version " + version + " ***\n\n" +
 				"Usage:\n" +
 				"coppee [-o] [-q] [-p] [-f] <dir>\n\n" +
 				"Arguments:\n" +

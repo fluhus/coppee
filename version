@@ -1,0 +1,3 @@
+0.4.2
+This file holds the version number. Change it and run
+src\.scripts\update_version.bat

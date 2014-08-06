@@ -81,7 +81,7 @@ Ok, so now you're probably thinking "how am I gonna use capturing groups on a
 mismatch?" Lucky for you, we got that covered:
 * `${0}` will be replaced by the entire file name, including directories.
 * `${1}` will be replaced by the directories, including the last separator.
-* `${2}` will be replaced by the file's prefix, up to the last period.
+* `${2}` will be replaced by the file's prefix, up to the last period.
 * `${3}` will be replaced by the file's suffix, including the period.
 
 Meaning that `${0}` is equivalent to `${1}${2}${3}`.
