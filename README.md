@@ -8,8 +8,7 @@ Please feel free to report bugs, comments and requests to
 
 [Project home](https://github.com/fluhus/coppee)
 
-[Download page]
-(https://www.dropbox.com/sh/retpososr9cf5kn/AADZCCGuOUuaANKEDmp25p4ga)
+[Download page](https://www.dropbox.com/sh/retpososr9cf5kn/AADZCCGuOUuaANKEDmp25p4ga)
 
 How to Compile
 --------------
@@ -32,7 +31,9 @@ Instruction File Format
 The instruction file contains the directives for Coppee's actions. It should be
 encoded in UTF-8 (Notepad++ makes it easy), and supports all languages. A
 sample instruction file can be
-found with the main code files. The instruction file should be formatted as follows:  
+found with the main code files. The instruction file should be formatted as
+follows:
+
 ```
 template1
 target1
@@ -40,6 +41,7 @@ template2
 target2
 ...
 ```
+
 Each template is a regular expression, followed by its specific target.
 File names that match the template, will be copied and named according to
 the target. Paths of the files will be relative to the input directory.
@@ -49,18 +51,21 @@ The regular expressions should match the syntax specified
 ### Capturing groups
 You can refer to
 the source's name in the target, using capturing groups:
+
 ```
 lecture_(\d+)\.ppt
 lesson_${1}.ppt
 ```
+
 The expression `${1}` will be replaced by the expression matched by the first
 parenthesized group. In the same way, `${2}` will be replaced by the second
-parenthesized expression, etc. In the above example, a file named **lecture_13.ppt** will
-be copied to a file named **lesson_13.ppt**.
+parenthesized expression, etc. In the above example, a file named
+**lecture_13.ppt** will be copied to a file named **lesson_13.ppt**.
 
 ### Comments and empty lines
 Comments are lines that start with `//`. Comments and empty lines are ignored by
 the parser.
+
 ```
 // This is a comment.
   // Enveloping whitespaces are trimmed for comments, templates and targets.
@@ -79,9 +84,10 @@ and the template itself, for readability.
 #### Capturing groups
 Ok, so now you're probably thinking "how am I gonna use capturing groups on a
 mismatch?" Lucky for you, we got that covered:
+
 * `${0}` will be replaced by the entire file name, including directories.
 * `${1}` will be replaced by the directories, including the last separator.
-* `${2}` will be replaced by the file's prefix, up to the last period.
+* `${2}` will be replaced by the file's prefix, up to the last period.
 * `${3}` will be replaced by the file's suffix, including the period.
 
 Meaning that `${0}` is equivalent to `${1}${2}${3}`.
